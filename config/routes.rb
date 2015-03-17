@@ -48,33 +48,33 @@ Glitter::Application.routes.draw do
 
     end
 
-    get '/commits' => 'projects#commits'
-    get '/commit/:tree_id' => 'projects#projectcommit'
-    get '/tree/:branch/' => 'projects#show_tree_content'
-    get '/tree/:branch/*destination' => 'projects#show_tree_content'
-    get '/blob/:branch/*destination' => 'projects#show_blob_content', :destination => /.*/
-    get '/master/:image_name' => 'projects#masterbranch', :image_name => /[^\/]*/
-    get '/master/:image_name/history' => 'projects#file_history', :image_name => /[^\/]*/
-    get '/createsvg' => 'projects#new_svg'
-    get '/newfile' => 'projects#newfile'
-    get '/master/:image_name/edit' => 'projects#edit_svg', :image_name => /[^\/]*/
-    get '/master/:image_name/update' => 'projects#update', :image_name => /[^\/]*/
-    delete '/master/:image_name/delete' => 'projects#file_delete', :image_name => /[^\/]*/
-    post '/follow' => 'projects#follow'
-    get '/fork' => 'projects#fork'
-    get '/forkyou' => 'projects#forkyou'
-    get '/pull' => 'projects#pull_request'
-    get '/pull/:pull_id' => 'projects#pull'
-    get '/pull/:pull_id/merge' => 'projects#merge'
-    get '/pull/:pull_id/close' => 'projects#close'
-    get '/pull/:pull_id/open' => 'projects#open'
-    get '/pulls' => 'projects#pulls'
-    get '/settings' => 'projects#settings'
-    get '/issues/new' => 'issues#new'
-    get '/issues' => 'issues#index'
-    post '/issues/new' => 'issues#create'
-    get  '/issue/:sub_id' => 'issues#show'
-    post '/issue/:sub_id/close' => 'issues#close'
+    get '/commits',             to: 'projects#commits'
+    get '/commit/:tree_id',     to: 'projects#projectcommit'
+    get '/tree/:branch/',       to: 'projects#show_tree_content'
+    get '/tree/:branch/*destination', to: 'projects#show_tree_content'
+    get '/blob/:branch/*destination', to: 'projects#show_blob_content', :destination => /.*/
+    get '/master/:image_name', to: 'projects#masterbranch', :image_name => /[^\/]*/
+    get '/master/:image_name/history', to: 'projects#file_history', :image_name => /[^\/]*/
+    get '/createsvg',           to: 'projects#new_svg'
+    get '/newfile',             to: 'projects#newfile'
+    get '/master/:image_name/edit', to: 'projects#edit_svg', :image_name => /[^\/]*/
+    get '/master/:image_name/update',   to: 'projects#update', :image_name => /[^\/]*/
+    delete '/master/:image_name/delete',to: 'projects#file_delete', :image_name => /[^\/]*/
+    post '/follow',             to: 'projects#follow'
+    get '/fork',                to: 'projects#fork'
+    get '/forkyou',             to: 'projects#forkyou'
+    get '/pull',                to: 'projects#pull_request'
+    get '/pull/:pull_id',       to: 'projects#pull'
+    get '/pull/:pull_id/merge', to: 'projects#merge'
+    get '/pull/:pull_id/close', to: 'projects#close'
+    get '/pull/:pull_id/open',  to: 'projects#open'
+    get '/pulls',               to: 'projects#pulls'
+    get '/settings',            to: 'projects#settings'
+    get '/issues/new',          to: 'issues#new'
+    get '/issues',              to: 'issues#index'
+    post '/issues/new',         to: 'issues#create'
+    get  '/issue/:sub_id',      to: 'issues#show'
+    post '/issue/:sub_id/close',to: 'issues#close'
 
 
   end
@@ -82,17 +82,17 @@ Glitter::Application.routes.draw do
 
 
 
-  post 'glitterposts/:id/edit' => 'glitterposts#update'
-  get '/inspire' => 'projects#index'
-  get '/dashboard' => 'dashboard#index', :as => :dashboard\
+  post 'glitterposts/:id/edit', to: 'glitterposts#update'
+  get '/inspire',               to: 'projects#index'
+  get '/dashboard',             to: 'dashboard#index', :as => :dashboard
 
-  get '/:username/follow' => 'relationships#follow'
-  get '/:username/unfollow' => 'relationships#unfollow'
-  get '/:username' => 'users#show'
+  get '/:username/follow',      to: 'relationships#follow'
+  get '/:username/unfollow',    to: 'relationships#unfollow'
+  get '/:username',             to: 'users#show'
   
-  get '/:username/projects' => 'projects#user_show'
-  get '/:username/projects/following' => 'users#list_followed_projects', :as => :followed_projects
-  get '/:username/:project' => 'projects#show'
+  get '/:username/projects',    to: 'projects#user_show'
+  get '/:username/projects/following', to: 'users#list_followed_projects', :as => :followed_projects
+  get '/:username/:project',    to: 'projects#show'
 
 =begin  
   -post 'glitterposts/:id/edit' => 'glitterposts#update'
