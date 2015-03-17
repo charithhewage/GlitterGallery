@@ -8,13 +8,49 @@ Glitter::Application.routes.draw do
   match 'auth/failure' => "identities#failed_to_authenticate", :via => [:get,:post]
   
 
-  resources :projects
-  resources :identities, only: [:destroy,:index]
-  resources :comments, only: [:new, :create, :destroy]
-  resources :glitterposts
-  resources :notifications, only: [:index,:show]
+  #resources :projects
+  #resources :identities, only: [:destroy,:index]
+  #resources :comments, only: [:new, :create, :destroy]
+  #resources :glitterposts
+  #resources :notifications, only: [:index,:show]
 
-  
+
+  scope '/:username/:projects', to: "projects" do
+    resources :projects
+    get :commits, to: 'projects#commits'
+    #get ':xid/commits/:tree_id' => 'projects#commits'
+    #constraints: { id: /\d.+/ }
+    
+    scope ':xid/' do
+      get '/commits/:tree_id',  to: 'projects#commits'
+      get 'commit/:tree_id',    to: 'projects#projectcommit'
+      get '/master/:image_name',to: 'projects#masterbranch', :image_name => /[^\/]*/
+      get '/master/:image_name/history', to: 'projects#file_history', :image_name => /[^\/]*/
+      get '/createsvg',               to: 'projects#new_svg'
+      get '/newfile',                 to: 'projects#newfile'
+      get '/master/:image_name/edit', to: 'projects#edit_svg', :image_name => /[^\/]*/
+      get '/master/:image_name/update',   to: 'projects#update', :image_name => /[^\/]*/
+      delete '/master/:image_name/delete',to: 'projects#file_delete', :image_name => /[^\/]*/
+      post '/follow',             to: 'projects#follow'
+      get '/fork',                to: 'projects#fork'
+      get '/forkyou',             to: 'projects#forkyou'
+      get '/pull',                to: 'projects#pull_request'
+      get '/pull/:pull_id',       to: 'projects#pull'
+      get '/pull/:pull_id/merge', to: 'projects#merge'
+      get '/pull/:pull_id/close', to: 'projects#close'
+      get '/pull/:pull_id/open',  to: 'projects#open'
+      get '/pulls',               to: 'projects#pulls'
+      get '/settings',            to: 'projects#settings'
+      get '/issues',              to: 'issues#index'
+      get '/issue/:sub_id',       to: 'issues#show'
+      get '/issues/new',          to: 'issues#new'
+      post '/issues/new',         to: 'issues#create'
+      post '/issue/:id/close',    to: 'issues#close'
+
+    end
+  end
+
+=begin  
   post 'glitterposts/:id/edit' => 'glitterposts#update'
   get '/inspire' => 'projects#index'
   get '/dashboard' => 'dashboard#index', :as => :dashboard
@@ -90,4 +126,5 @@ Glitter::Application.routes.draw do
       post :update_svg, :as => :update_svg
     end
   end 
+=end
 end
